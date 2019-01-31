@@ -34,7 +34,7 @@ import 'package:meta/meta.dart';
 class EnsureVisibleWhenFocused extends StatefulWidget {
   const EnsureVisibleWhenFocused({
     Key key,
-    @required this.child,
+    @required this.builder,
     @required this.focusNode,
     this.curve: Curves.ease,
     this.duration: const Duration(milliseconds: 100),
@@ -44,7 +44,7 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
   final FocusNode focusNode;
 
   /// The child widget that we are wrapping
-  final Widget child;
+  final FocusWidgetBuilder builder;
 
   /// The curve we will use to scroll ourselves into view.
   ///
@@ -57,14 +57,15 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
   final Duration duration;
 
   @override
-  _EnsureVisibleWhenFocusedState createState() => new _EnsureVisibleWhenFocusedState();
+  _EnsureVisibleWhenFocusedState createState() =>
+      new _EnsureVisibleWhenFocusedState();
 }
 
 ///
 /// We implement the WidgetsBindingObserver to be notified of any change to the window metrics
 ///
-class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> with WidgetsBindingObserver {
-
+class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -102,12 +103,8 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> wit
   ///
   Future<Null> _keyboardToggled() async {
     if (mounted) {
-      EdgeInsets edgeInsets = MediaQuery
-          .of(context)
-          .viewInsets;
-      while (mounted && MediaQuery
-          .of(context)
-          .viewInsets == edgeInsets) {
+      EdgeInsets edgeInsets = MediaQuery.of(context).viewInsets;
+      while (mounted && MediaQuery.of(context).viewInsets == edgeInsets) {
         await new Future.delayed(const Duration(milliseconds: 10));
       }
     }
@@ -118,7 +115,8 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> wit
   Future<Null> _ensureVisible() async {
     // Wait for the keyboard to come into view
     await Future.any([
-      new Future.delayed(const Duration(milliseconds: 300)), _keyboardToggled()
+      new Future.delayed(const Duration(milliseconds: 300)),
+      _keyboardToggled()
     ]);
 
     // No need to go any further if the node has not the focus
@@ -142,7 +140,8 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> wit
     if (position.pixels > viewport.getOffsetToReveal(object, 0.0).offset) {
       // Move down to the top of the viewport
       alignment = 0.0;
-    } else if (position.pixels < viewport.getOffsetToReveal(object, 1.0).offset) {
+    } else if (position.pixels <
+        viewport.getOffsetToReveal(object, 1.0).offset) {
       // Move up to the bottom of the viewport
       alignment = 1.0;
     } else {
@@ -158,8 +157,13 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused> wit
     );
   }
 
+   final TextEditingController controller = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return widget.builder(widget.focusNode, controller);
   }
 }
+
+typedef FocusWidgetBuilder = Widget Function(
+    FocusNode focusNode, TextEditingController controller);

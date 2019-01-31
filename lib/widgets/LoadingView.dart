@@ -27,7 +27,7 @@ class _LoadingViewState extends State<LoadingView> {
   }
 }
 
-class LoadController {
+abstract class LoadingViewController {
   var loading = false;
 
   showLoading() {
