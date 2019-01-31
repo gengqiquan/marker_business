@@ -8,6 +8,7 @@ import 'package:marker_business/utils/Colour.dart';
 import 'package:marker_business/widgets/EnsureVisibleWhenFocused.dart';
 import 'package:flutter/services.dart';
 import 'RegisterUI.dart';
+import 'package:marker_business/utils/User.dart';
 import 'package:marker_business/base/BaseController.dart';
 ///auther:gengqiquan
 ///date:2019/1/30
@@ -23,10 +24,11 @@ class LoginUI extends StatefulWidget {
 }
 
 class _LoginUIState extends State<LoginUI>
-    with LoginController, LoadingViewController {
+    with LoginController,BaseController, LoadingViewController {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
           elevation: 0,
@@ -179,7 +181,6 @@ class _LoginUIState extends State<LoginUI>
                           borderRadius: BorderRadius.all(Radius.circular(24))),
                     ),
                     onTap: () {
-                      showLoading();
                       login(() {
                         hideLoading();
                         widget.loginSuccess();

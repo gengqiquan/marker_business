@@ -42,24 +42,22 @@ class Http {
     }
   }
 
-  post(String path, params, Function(Model) success,
-      Function(Exception) error) async {
+  post(String path, params, Function(Model) success, Function error) async {
     try {
       Response response = await _dio.post(path, data: params);
       if (response.statusCode != 200) {
-//        error(new Exception(
-//            "response statusCode=" + response.statusCode.toString()));
+        error(new Exception(
+            "response statusCode=" + response.statusCode.toString()));
         return print("response.statusCode" + response.statusCode.toString());
       }
       print(response);
-      Map data=JsonCodec().decode(response.data);
+      Map data = JsonCodec().decode(response.data);
       Model model = Model.fromJson(data);
       success(model);
       print(model);
     } catch (e) {
-//      error(e);
+      error(e);
       return print(e);
     }
   }
 }
-

@@ -5,7 +5,7 @@ import 'package:marker_business/widgets/LoadingView.dart';
 import 'package:marker_business/utils/Colour.dart';
 import 'package:marker_business/widgets/EnsureVisibleWhenFocused.dart';
 import 'package:flutter/services.dart';
-
+import 'package:marker_business/base/BaseController.dart';
 ///auther:gengqiquan
 ///date:2019/1/30
 ///description:RegistUI
@@ -20,7 +20,7 @@ class RegisterUI extends StatefulWidget {
 }
 
 class _RegisterUIState extends State<RegisterUI>
-    with RegistController, LoadingViewController {
+    with RegistController,BaseController, LoadingViewController {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -38,7 +38,7 @@ class _RegisterUIState extends State<RegisterUI>
                 Navigator.of(context).pop();
               }),
           title: const Text(
-            "登录",
+            "注册",
             style:
                 TextStyle(color: Colour.gray666, fontWeight: FontWeight.w100),
           )),
@@ -189,7 +189,6 @@ class _RegisterUIState extends State<RegisterUI>
                           borderRadius: BorderRadius.all(Radius.circular(24))),
                     ),
                     onTap: () {
-                      showLoading();
                       register(() {
                         hideLoading();
                         widget.loginSuccess();

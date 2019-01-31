@@ -4,6 +4,7 @@ import 'home/HomeUI.dart';
 import 'msg/MsgUI.dart';
 import 'user/UserUI.dart';
 import 'login/LoginUI.dart';
+import 'package:marker_business/utils/User.dart';
 
 void main() => runApp(new MyApp());
 
@@ -22,15 +23,31 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> w = [HomeUI(), MsgUI(), UserUI()];
 
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(home: login ? buildHome() : new LoginUI(loginSuccess: (){
+  void initState() {
+    super.initState();
+    User.initByCache(() {
       setState(() {
-        login=true;
+        login = true;
       });
-    },));
+    });
   }
 
-  var login = false;
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        home: login
+            ? buildHome()
+            : new LoginUI(
+                loginSuccess: () {
+                  setState(() {
+                    login = true;
+                    User.login = true;
+                  });
+                },
+              ));
+  }
+
+  bool login = false;
 
   buildHome() {
     return new CupertinoTabScaffold(

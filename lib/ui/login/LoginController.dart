@@ -3,48 +3,38 @@ import 'package:marker_business/base/BaseController.dart';
 import 'dart:async';
 import 'package:marker_business/widgets/LoadingView.dart';
 import 'package:marker_business/net/Http.dart';
+import 'package:marker_business/utils/User.dart';
 
 ///auther:gengqiquan
 ///date:2019/1/30
 ///description:LoginController
 import 'package:fluttertoast/fluttertoast.dart';
- class LoginController with BaseController , LoadingViewController {
-  String phone="";
-  String code="";
+
+class LoginController with BaseController, LoadingViewController {
+  String phone = "";
+  String code = "";
   String codeTime = "120s后再试";
   bool codeEnable = true;
 
   getCode() {
-    updateUI(() {
-      codeTime = "120s后再试";
-      codeEnable = false;
+    if (phone.length < 11) {
+      toast("手机号码少于11位");
+      return;
+    }
+    showLoading();
+
+    Http.instance.post("seller/sendVerifCode", {"phoneNum": phone}, (model) {
+      if (model.status == 1) {
+        hideLoading();
+        toast("验证码发送成功");
+        cutDown();
+      } else {
+        toast(model.info);
+      }
+    }, (e) {
+      netError();
+      hideLoading();
     });
-//    if (phone.length < 11) {
-//      Fluttertoast.showToast(
-//          msg: "手机号码少于11位",
-//          toastLength: Toast.LENGTH_SHORT,
-//          gravity: ToastGravity.BOTTOM,
-//          timeInSecForIos: 1,
-//          backgroundColor: Colors.black87,
-//          textColor: Colors.white,
-//          fontSize: 16.0);
-////      toast("手机号码少于11位");
-//      return;
-//    }
-//    showLoading();
-//
-//    Http.instance.post("seller/sendVerifCode", {"phoneNum": phone}, (model) {
-//      if (model.status == 1) {
-//        hideLoading();
-//        toast("验证码发送成功");
-//        cutDown();
-//      } else {
-//        toast(model.info);
-//      }
-//    }, (e) {
-//      netError();
-//      hideLoading();
-//    });
   }
 
   login(Function success) {
@@ -58,6 +48,7 @@ import 'package:fluttertoast/fluttertoast.dart';
         "seller/sellerLoginByCode", {"phone": phone, "code": code}, (model) {
       hideLoading();
       if (model.status == 1) {
+        User.init(model.data);
         toast("登录成功");
         success();
       } else {

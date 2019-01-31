@@ -7,7 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class BaseController {
   updateUI(Function update) {
-    (this as State).setState(update);
+    var state = (this as State);
+    if (state.mounted) state.setState(update);
   }
 
   _showToast(String msg, Toast toastLength) {
@@ -16,7 +17,7 @@ abstract class BaseController {
         toastLength: toastLength,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIos: 1,
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black54,
         textColor: Colors.white,
         fontSize: 16.0);
   }
@@ -28,7 +29,8 @@ abstract class BaseController {
   toastLong(String msg) {
     _showToast(msg, Toast.LENGTH_LONG);
   }
-  netError(){
+
+  netError() {
     _showToast("网络异常", Toast.LENGTH_LONG);
   }
 }

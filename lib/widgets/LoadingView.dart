@@ -31,14 +31,18 @@ abstract class LoadingViewController {
   var loading = false;
 
   showLoading() {
-    (this as State).setState(() {
-      loading = true;
-    });
+    var state = (this as State);
+    if (state.mounted)
+      state.setState(() {
+        loading = true;
+      });
   }
 
   hideLoading() {
-    (this as State).setState(() {
-      loading = false;
-    });
+    var state = (this as State);
+    if (state.mounted)
+      state.setState(() {
+        loading = false;
+      });
   }
 }

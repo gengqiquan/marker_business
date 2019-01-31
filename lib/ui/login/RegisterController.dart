@@ -3,14 +3,15 @@ import 'package:marker_business/base/BaseController.dart';
 import 'dart:async';
 import 'package:marker_business/widgets/LoadingView.dart';
 import 'package:marker_business/net/Http.dart';
+import 'package:marker_business/utils/User.dart';
 
 ///auther:gengqiquan
 ///date:2019/1/30
 ///description:LoginController
 
 class RegistController with BaseController, LoadingViewController {
-  String phone="";
-  String code="";
+  String phone = "";
+  String code = "";
   String codeTime = "120s后再试";
   bool codeEnable = true;
 
@@ -42,10 +43,11 @@ class RegistController with BaseController, LoadingViewController {
     }
     showLoading();
 
-    Http.instance.post(
-        "seller/sellerRegister1", {"phone": phone, "code": code}, (model) {
+    Http.instance.post("seller/sellerRegister1", {"phone": phone, "code": code},
+        (model) {
       hideLoading();
       if (model.status == 1) {
+        User.init(model.data);
         toast("登录成功");
         success();
       } else {

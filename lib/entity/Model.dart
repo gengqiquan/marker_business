@@ -1,5 +1,5 @@
-class Model {
-	Null data;
+class Model<T> {
+	T data;
 	String info;
 	int status;
 
