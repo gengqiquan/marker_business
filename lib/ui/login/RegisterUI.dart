@@ -1,37 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/material/theme_data.dart';
-import 'LoginController.dart';
+import 'RegisterController.dart';
 import 'dart:ui';
 import 'package:marker_business/widgets/LoadingView.dart';
 import 'package:marker_business/utils/Colour.dart';
 import 'package:marker_business/widgets/EnsureVisibleWhenFocused.dart';
 import 'package:flutter/services.dart';
-import 'RegisterUI.dart';
-import 'package:marker_business/base/BaseController.dart';
+
 ///auther:gengqiquan
 ///date:2019/1/30
-///description:LoginUI
+///description:RegistUI
 
-class LoginUI extends StatefulWidget {
+class RegisterUI extends StatefulWidget {
+  RegisterUI({@required this.loginSuccess});
+
   Function loginSuccess;
 
   @override
-  State<StatefulWidget> createState() => new _LoginUIState();
-
-  LoginUI({@required this.loginSuccess});
+  State<StatefulWidget> createState() => new _RegisterUIState();
 }
 
-class _LoginUIState extends State<LoginUI>
-    with LoginController, LoadingViewController {
+class _RegisterUIState extends State<RegisterUI>
+    with RegistController, LoadingViewController {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
-          title: const Text("登录",style: TextStyle(color: Colour.gray666,fontWeight: FontWeight.w100),)),
+          leading: new IconButton(
+              icon: new Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+          title: const Text(
+            "登录",
+            style:
+                TextStyle(color: Colour.gray666, fontWeight: FontWeight.w100),
+          )),
       body: new Container(
         color: Colors.white,
         height: double.infinity,
@@ -171,7 +181,7 @@ class _LoginUIState extends State<LoginUI>
                       height: 48,
                       alignment: Alignment.center,
                       child: new Text(
-                        "登录",
+                        "注册",
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                       decoration: BoxDecoration(
@@ -180,7 +190,7 @@ class _LoginUIState extends State<LoginUI>
                     ),
                     onTap: () {
                       showLoading();
-                      login(() {
+                      register(() {
                         hideLoading();
                         widget.loginSuccess();
                       });
@@ -193,20 +203,17 @@ class _LoginUIState extends State<LoginUI>
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       new Text(
-                        "没有账号？",
+                        "已有账号？",
                         style: TextStyle(color: Colour.gray999, fontSize: 14),
                       ),
                       new InkWell(
                         child: new Text(
-                          "去注册",
+                          "去登录",
                           style: TextStyle(
                               color: Colour.themeAccentE0, fontSize: 14),
                         ),
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => RegisterUI(
-                                    loginSuccess: widget.loginSuccess,
-                                  )));
+                          Navigator.of(context).pop();
                         },
                       ),
                       new SizedBox(

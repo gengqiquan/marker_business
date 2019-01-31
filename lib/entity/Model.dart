@@ -1,21 +1,21 @@
-import 'package:json_annotation/json_annotation.dart';
+class Model {
+	Null data;
+	String info;
+	int status;
 
-part 'Model.g.dart';
-///auther:gengqiquan
-///date:2019/1/31
-///description:Model
+	Model({this.data, this.info, this.status});
 
-@JsonSerializable()
-class Model extends Object with _$ModelSerializerMixin{
+	Model.fromJson(Map<String, dynamic> json) {
+		data = json['data'];
+		info = json['info'];
+		status = json['status'];
+	}
 
-  @JsonKey(name: 'info')
-  String info;
-
-  @JsonKey(name: 'status')
-  int status;
-
-  Model(this.info,this.status,);
-
-  factory Model.fromJson(Map<String, dynamic> srcJson) => _$ModelFromJson(srcJson);
-
+	Map<String, dynamic> toJson() {
+		final Map<String, dynamic> data = new Map<String, dynamic>();
+		data['data'] = this.data;
+		data['info'] = this.info;
+		data['status'] = this.status;
+		return data;
+	}
 }

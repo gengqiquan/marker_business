@@ -27,14 +27,14 @@ class Http {
 
   get(String path, Function(Model) success, Function(Exception) error) async {
     try {
-      Response<Model> response = await _dio.get(path);
+      Response<Map> response = await _dio.get(path);
       if (response.statusCode != 200) {
 //        error(new Exception(
 //            "response statusCode=" + response.statusCode.toString()));
         return print("response.statusCode" + response.statusCode.toString());
       }
       print(response);
-      Model data = response.data;
+      Model data = Model.fromJson(response.data);
       success(data);
     } catch (e) {
 //      error(e);
@@ -52,9 +52,10 @@ class Http {
         return print("response.statusCode" + response.statusCode.toString());
       }
       print(response);
-      Model data = new JsonCodec().decode(response.data);
-      success(data);
-      print(data);
+      Map data=JsonCodec().decode(response.data);
+      Model model = Model.fromJson(data);
+      success(model);
+      print(model);
     } catch (e) {
 //      error(e);
       return print(e);
