@@ -7,6 +7,7 @@ import 'package:marker_business/ui/login/RegisterMarketUI.dart';
 ///description:HomeUI
 
 class HomeUI extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() => new _HomeUIState();
 }
@@ -14,11 +15,11 @@ class HomeUI extends StatefulWidget {
 class _HomeUIState extends State<HomeUI> {
   @override
   Widget build(BuildContext context) {
-    return new CupertinoPageScaffold(
+    return new Scaffold(
 //      navigationBar: new CupertinoNavigationBar(
 //        middle: const Text("首页"),
 //      ),
-      child: new Container(
+      body: new Container(
         color: Colors.yellow,
         child: new Center(
           child: new RaisedButton(onPressed: () {

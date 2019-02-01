@@ -14,11 +14,11 @@ class _UserUIState extends State<UserUI> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new CupertinoPageScaffold(
-      navigationBar: new CupertinoNavigationBar(
-        middle: const Text("用户"),
-      ),
-      child: new Container(color: Colors.green,),
+    return new Scaffold(
+//      navigationBar: new CupertinoNavigationBar(
+//        middle: const Text("用户"),
+//      ),
+      body: new Container(color: Colors.green,),
     );
   }
 }

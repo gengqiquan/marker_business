@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'RegisterMarketController.dart';
 import 'dart:ui';
 import 'dart:io';
-import 'package:marker_business/widgets/LoadingView.dart';
+import 'package:marker_business/ui/widgets.dart';
 import 'package:marker_business/utils/Colour.dart';
-import 'package:marker_business/widgets/EnsureVisibleWhenFocused.dart';
 import 'package:flutter/services.dart';
 import 'package:marker_business/base/BaseController.dart';
 import 'package:image_picker/image_picker.dart';
@@ -22,117 +22,145 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
     with RegisterMarketController, LoadingViewController, BaseController {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
-      body: new Column(
+      body: new Stack(
         children: <Widget>[
-          new Stack(
+          new Image.asset(
+            "images/diwen_fp.png",
+            height: 222,
+            fit: BoxFit.fill,
+          ),
+          new Column(
             children: <Widget>[
-              new Image.asset(
-                "images/diwen_fp.png",
-                height: 222,
-                fit: BoxFit.fill,
-              ),
-              new Column(
-                children: <Widget>[
-                  new Container(
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).padding.top),
-                    alignment: Alignment.bottomCenter,
-                    height: 48,
-                    child: new Row(
-                      children: <Widget>[
-                        new IconButton(
-                            icon: new Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            }),
-                        Text(
-                          "商家免费入住",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+              new Container(
+                margin:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                alignment: Alignment.bottomCenter,
+                height: 48,
+                child: new Row(
+                  children: <Widget>[
+                    new IconButton(
+                        icon: new Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
                         ),
-                        new IconButton(
-                            icon: new Icon(
-                              Icons.phone,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            }),
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }),
+                    Text(
+                      "商家免费入住",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                  ),
-                  new Padding(
-                    padding: EdgeInsets.fromLTRB(34, 10, 34, 15),
-                    child: new Row(
-                      children: buildStep(),
-                    ),
-                  ),
-                  new Padding(
-                    padding: EdgeInsets.fromLTRB(19, 0, 19, 0),
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: buildStepLabel(),
-                    ),
-                  ),
-                  new Container(
-                    margin: EdgeInsets.all(20),
-                    alignment: Alignment.center,
-                    child: new Text(
-                      "提交入驻申请后，我们会在3个工作日内给出审核结果；如有疑问，请点击右上角联系客服",
-                      style: TextStyle(color: Colour.line, fontSize: 12),
-                    ),
-                  ),
-                  buildEdit("商家名称", onChanged: (str) {
-                    marketName = str;
-                  }),
-                  line(),
-                  buildEdit("商家电话", onChanged: (str) {
-                    marketPhone = str;
-                  }),
-                  line(),
-                  buildEdit("经办人（联系人）", onChanged: (str) {
-                    operator = str;
-                  }),
-                  line(),
-                  buildEdit("经办人（联系人）电话", onChanged: (str) {
-                    operatorPhone = str;
-                  }),
-                  line(),
-                  buildEdit("商家地址", onChanged: (str) {
-                    address = str;
-                  }),
-                  line(),
-                  buildEdit("企业规模", onChanged: (str) {
-                    scale = str;
-                  }),
-                  line(),
-                  new Text(
-                    "上海LOGO",
-                    style: TextStyle(color: Colors.black, fontSize: 13),
-                  ),
-                  new Container(
-                      width: 120,
-                      height: 120,
-                      decoration: new BoxDecoration(
-                          image:
-                              new DecorationImage(image: new AssetImage("images/add_pic.png"))),
-                      child: new InkWell(
-                        child: new Image.file(logoFile),
-                        onTap: () async {
-                          var image = await ImagePicker.pickImage(
-                              source: ImageSource.camera);
-                          setState(() {
-                            logoFile = image;
+                    new IconButton(
+                        icon: new Icon(
+                          Icons.phone,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.fromLTRB(34, 10, 34, 15),
+                child: new Row(
+                  children: buildStep(),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.fromLTRB(19, 0, 19, 0),
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: buildStepLabel(),
+                ),
+              ),
+              new Container(
+                margin: EdgeInsets.all(20),
+                alignment: Alignment.center,
+                child: new Text(
+                  "提交入驻申请后，我们会在3个工作日内给出审核结果；如有疑问，请点击右上角联系客服",
+                  style: TextStyle(color: Colour.line, fontSize: 12),
+                ),
+              ),
+              new Flexible(
+                child: new SingleChildScrollView(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      buildEdit("商家名称", onChanged: (str) {
+                        marketName = str;
+                      }),
+                      line(),
+                      buildEdit("商家电话", inputType: TextInputType.phone,
+                          onChanged: (str) {
+                        marketPhone = str;
+                      }),
+                      line(),
+                      buildEdit("经办人（联系人）", onChanged: (str) {
+                        operator = str;
+                      }),
+                      line(),
+                      buildEdit("经办人（联系人）电话", inputType: TextInputType.text,
+                          onChanged: (str) {
+                        operatorPhone = str;
+                      }),
+                      line(),
+                      buildEdit("商家地址", onChanged: (str) {
+                        address = str;
+                      }),
+                      line(),
+                      buildEdit("企业规模", onChanged: (str) {
+                        scale = str;
+                      }),
+                      line(),
+                      new Padding(
+                        padding: EdgeInsets.only(left: 34, top: 7),
+                        child: new Text(
+                          "商家LOGO",
+                          style: TextStyle(color: Colors.black, fontSize: 13),
+                        ),
+                      ),
+                      new Container(
+                          margin: EdgeInsets.only(left: 34, top: 7),
+                          width: 60,
+                          height: 60,
+//                      decoration: new BoxDecoration(
+//                          image:
+//                              new DecorationImage(image: new AssetImage("images/add_pic.png"))),
+                          child: new InkWell(
+                            child: logoFile != null
+                                ? new Image.file(
+                                    logoFile,
+                                    fit: BoxFit.fill,
+                                  )
+                                : new Image.asset(
+                                    "images/add_pic.png",
+                                    fit: BoxFit.fill,
+                                  ),
+                            onTap: () async {
+                              var image = await ImagePicker.pickImage(
+                                  source: ImageSource.gallery);
+                              setState(() {
+                                logoFile = image;
+                              });
+                            },
+                          )),
+                      new Padding(
+                        padding: EdgeInsets.all(48),
+                        child: new Button("下一步", () {
+                          putInfo(() {
+                            setState(() {
+                              step = 3;
+                            });
                           });
-                        },
-                      )),
-                ],
-              )
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           )
         ],
@@ -140,7 +168,6 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
     );
   }
 
-  File logoFile;
   var step = 2;
   var steps = [
     "商家注册",

@@ -14,11 +14,11 @@ class _MsgUIState extends State<MsgUI> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new CupertinoPageScaffold(
-      navigationBar: new CupertinoNavigationBar(
-        middle: const Text("消息"),
-      ),
-      child: new Container(color: Colors.yellow,),
+    return new Scaffold(
+//      navigationBar: new CupertinoNavigationBar(
+//        middle: const Text("消息"),
+//      ),
+      body: new Container(color: Colors.yellow,),
     );
   }
 }

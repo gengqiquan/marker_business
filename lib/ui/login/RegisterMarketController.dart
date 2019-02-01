@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:marker_business/base/BaseController.dart';
 import 'package:marker_business/net/Http.dart';
 import 'package:marker_business/utils/User.dart';
@@ -17,8 +17,9 @@ class RegisterMarketController with BaseController, LoadingViewController {
   String scale = "";
   String operatorPhone = "";
   String logo = "";
+  File logoFile;
 
-  getCode() {
+  putInfo(Function success) {
     if (marketName.isEmpty) {
       toast("商家姓名不能为空");
       return;
@@ -44,21 +45,43 @@ class RegisterMarketController with BaseController, LoadingViewController {
       return;
     }
 
-//    showLoading();
-//
-//    Http.instance.post(
-//        "seller/sellerLoginByCode", {"phone": phone, "code": code}, (model) {
-//      hideLoading();
-//      if (model.status == 1) {
-//        User.init(model.data);
-//        toast("登录成功");
-//        success();
-//      } else {
-//        toast(model.info);
-//      }
-//    }, (e) {
-//      netError();
-//      hideLoading();
-//    });
+    showLoading();
+    putPic(logoFile, () {
+      Http.instance.post("seller/sellerRegister3", {
+        "sellerName": "sfsafas",
+        "sellerPhone": "18005146528",
+        "contracter": "fasfasfs",
+        "contractPhone": "18005146528",
+        "sellerAddr": address,
+        "sellerScale": scale,
+        "sellerLogo": logo,
+      }, (model) {
+        hideLoading();
+        toast(model.info);
+        if (model.status == 1) {
+          success();
+        }
+      }, (e) {
+        print("基本资料异常");
+        netError();
+        hideLoading();
+      });
+    });
+  }
+
+  putPic(File file, Function() success) {
+    showLoading();
+    Http.instance.uploadPic(file, (model) {
+      hideLoading();
+      if (model.status == 1) {
+        logo = model.data["filepath"];
+        success();
+      } else {
+        toast(model.info);
+      }
+    }, (e) {
+      netError();
+      hideLoading();
+    });
   }
 }

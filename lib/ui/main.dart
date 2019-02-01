@@ -14,17 +14,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<TabItem> items = [
+  List<TabItem> items = [
     new TabItem("首页", Icons.home, HomeUI()),
     new TabItem("消息", Icons.message, MsgUI()),
     new TabItem("我的", Icons.person, UserUI()),
   ];
   int currentIndex = 0;
-  final List<Widget> w = [HomeUI(), MsgUI(), UserUI()];
+
+//  final List<Widget> w = [HomeUI(), MsgUI(), UserUI()];
 
   @override
   void initState() {
     super.initState();
+
     User.initByCache(() {
       setState(() {
         login = true;
@@ -50,8 +52,8 @@ class _MyAppState extends State<MyApp> {
   bool login = false;
 
   buildHome() {
-    return new CupertinoTabScaffold(
-      tabBar: new CupertinoTabBar(
+    return new Scaffold(
+      bottomNavigationBar: new CupertinoTabBar(
 //          currentIndex: currentIndex,
           onTap: (p) {
             setState(() {
@@ -60,11 +62,7 @@ class _MyAppState extends State<MyApp> {
             });
           },
           items: buildTabItem()),
-      tabBuilder: (context, index) {
-        return new CupertinoTabView(builder: (context) {
-          return items[currentIndex].router;
-        });
-      },
+      body: items[currentIndex].router,
     );
   }
 
