@@ -66,7 +66,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
               new Padding(
                 padding: EdgeInsets.fromLTRB(34, 10, 34, 15),
                 child: new Row(
-                  children: buildStep(),
+                  children: buildIndicator(),
                 ),
               ),
               new Padding(
@@ -85,81 +85,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
                 ),
               ),
               new Flexible(
-                child: new SingleChildScrollView(
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      buildEdit("商家名称", onChanged: (str) {
-                        marketName = str;
-                      }),
-                      line(),
-                      buildEdit("商家电话", inputType: TextInputType.phone,
-                          onChanged: (str) {
-                        marketPhone = str;
-                      }),
-                      line(),
-                      buildEdit("经办人（联系人）", onChanged: (str) {
-                        operator = str;
-                      }),
-                      line(),
-                      buildEdit("经办人（联系人）电话", inputType: TextInputType.text,
-                          onChanged: (str) {
-                        operatorPhone = str;
-                      }),
-                      line(),
-                      buildEdit("商家地址", onChanged: (str) {
-                        address = str;
-                      }),
-                      line(),
-                      buildEdit("企业规模", onChanged: (str) {
-                        scale = str;
-                      }),
-                      line(),
-                      new Padding(
-                        padding: EdgeInsets.only(left: 34, top: 7),
-                        child: new Text(
-                          "商家LOGO",
-                          style: TextStyle(color: Colors.black, fontSize: 13),
-                        ),
-                      ),
-                      new Container(
-                          margin: EdgeInsets.only(left: 34, top: 7),
-                          width: 60,
-                          height: 60,
-//                      decoration: new BoxDecoration(
-//                          image:
-//                              new DecorationImage(image: new AssetImage("images/add_pic.png"))),
-                          child: new InkWell(
-                            child: logoFile != null
-                                ? new Image.file(
-                                    logoFile,
-                                    fit: BoxFit.fill,
-                                  )
-                                : new Image.asset(
-                                    "images/add_pic.png",
-                                    fit: BoxFit.fill,
-                                  ),
-                            onTap: () async {
-                              var image = await ImagePicker.pickImage(
-                                  source: ImageSource.gallery);
-                              setState(() {
-                                logoFile = image;
-                              });
-                            },
-                          )),
-                      new Padding(
-                        padding: EdgeInsets.all(48),
-                        child: new Button("下一步", () {
-                          putInfo(() {
-                            setState(() {
-                              step = 3;
-                            });
-                          });
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
+                child: new SingleChildScrollView(child: buildSteps()),
               ),
             ],
           )
@@ -176,7 +102,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
     "品牌入驻",
   ];
 
-  buildStep() {
+  buildIndicator() {
     List<Widget> widgets = new List();
     steps.forEach((name) {
       var index = steps.indexOf(name) + 1;
@@ -280,6 +206,284 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
       color: Colour.line,
       margin: EdgeInsets.only(left: 22, right: 22),
       height: 1,
+    );
+  }
+
+  buildSteps() {
+    var widget;
+    switch (step) {
+      case 2:
+        widget = buildStep2();
+        break;
+      case 3:
+        widget = buildStep3();
+        break;
+      case 4:
+        widget = buildStep4();
+        break;
+    }
+    return widget;
+  }
+
+  buildStep2() {
+    return new Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        buildEdit("商家名称", onChanged: (str) {
+          marketName = str;
+        }),
+        line(),
+        buildEdit("商家电话", inputType: TextInputType.phone, onChanged: (str) {
+          marketPhone = str;
+        }),
+        line(),
+        buildEdit("经办人（联系人）", onChanged: (str) {
+          operator = str;
+        }),
+        line(),
+        buildEdit("经办人（联系人）电话", inputType: TextInputType.text,
+            onChanged: (str) {
+          operatorPhone = str;
+        }),
+        line(),
+        buildEdit("商家地址", onChanged: (str) {
+          address = str;
+        }),
+        line(),
+        buildEdit("企业规模", onChanged: (str) {
+          scale = str;
+        }),
+        line(),
+        new Padding(
+          padding: EdgeInsets.only(left: 34, top: 7),
+          child: new Text(
+            "商家LOGO",
+            style: TextStyle(color: Colors.black, fontSize: 13),
+          ),
+        ),
+        new Container(
+            margin: EdgeInsets.only(left: 34, top: 7),
+            width: 60,
+            height: 60,
+//                      decoration: new BoxDecoration(
+//                          image:
+//                              new DecorationImage(image: new AssetImage("images/add_pic.png"))),
+            child: new InkWell(
+              child: logoFile != null
+                  ? new Image.file(
+                      logoFile,
+                      fit: BoxFit.fill,
+                    )
+                  : new Image.asset(
+                      "images/add_pic.png",
+                      fit: BoxFit.fill,
+                    ),
+              onTap: () async {
+                var image =
+                    await ImagePicker.pickImage(source: ImageSource.gallery);
+                setState(() {
+                  logoFile = image;
+                });
+              },
+            )),
+        new Padding(
+          padding: EdgeInsets.only(left: 48, right: 48, top: 20, bottom: 20),
+          child: new Button("下一步", () {
+            putInfo(() {
+              setState(() {
+                step = 3;
+              });
+            });
+          }),
+        ),
+      ],
+    );
+  }
+
+  buildStep3() {
+    return new Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        new Padding(
+          padding: EdgeInsets.only(left: 34, top: 12),
+          child: new Text(
+            "营业执照",
+            style: TextStyle(color: Colors.black, fontSize: 13),
+          ),
+        ),
+        new Container(
+            margin: EdgeInsets.only(left: 34, top: 15),
+            width: 110,
+            height: 80,
+            child: new InkWell(
+              child: file1 != null
+                  ? new Image.file(
+                      file1,
+                      fit: BoxFit.fill,
+                    )
+                  : new Image.asset(
+                      "images/yingyezhizhao.png",
+                      fit: BoxFit.fill,
+                    ),
+              onTap: () async {
+                var image =
+                    await ImagePicker.pickImage(source: ImageSource.gallery);
+                setState(() {
+                  file1 = image;
+                });
+              },
+            )),
+        new Padding(
+          padding: EdgeInsets.only(left: 34, top: 15),
+          child: new Text(
+            "经办人（联系人）身份证",
+            style: TextStyle(color: Colors.black, fontSize: 13),
+          ),
+        ),
+        new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            new Container(
+                margin: EdgeInsets.only(left: 34, top: 15),
+                width: 110,
+                height: 80,
+                child: new InkWell(
+                  child: file2 != null
+                      ? new Image.file(
+                          file2,
+                          fit: BoxFit.fill,
+                        )
+                      : new Image.asset(
+                          "images/identity1.png",
+                          fit: BoxFit.fill,
+                        ),
+                  onTap: () async {
+                    var image = await ImagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    setState(() {
+                      file2 = image;
+                    });
+                  },
+                )),
+            new Container(
+                margin: EdgeInsets.only(right: 34, top: 15),
+                width: 110,
+                height: 80,
+                child: new InkWell(
+                  child: file3 != null
+                      ? new Image.file(
+                          file3,
+                          fit: BoxFit.fill,
+                        )
+                      : new Image.asset(
+                          "images/identity2.png",
+                          fit: BoxFit.fill,
+                        ),
+                  onTap: () async {
+                    var image = await ImagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    setState(() {
+                      file3 = image;
+                    });
+                  },
+                )),
+          ],
+        ),
+        new Padding(
+          padding: EdgeInsets.only(left: 34, top: 12),
+          child: new Text(
+            "法人授权书",
+            style: TextStyle(color: Colors.black, fontSize: 13),
+          ),
+        ),
+        new Container(
+            margin: EdgeInsets.only(left: 34, top: 15),
+            width: 110,
+            height: 80,
+            child: new InkWell(
+              child: file4 != null
+                  ? new Image.file(
+                      file4,
+                      fit: BoxFit.fill,
+                    )
+                  : new Image.asset(
+                      "images/authorize.png",
+                      fit: BoxFit.fill,
+                    ),
+              onTap: () async {
+                var image =
+                    await ImagePicker.pickImage(source: ImageSource.gallery);
+                setState(() {
+                  file4 = image;
+                });
+              },
+            )),
+        new Padding(
+          padding: EdgeInsets.only(left: 48, right: 48, top: 20, bottom: 20),
+          child: new Button("下一步", () {
+            putPics(() {
+              setState(() {
+                step = 4;
+              });
+            });
+          }),
+        ),
+      ],
+    );
+  }
+
+  buildStep4() {
+    return new Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        buildEdit("商品名称", onChanged: (str) {
+          marketName = str;
+        }),
+        line(),
+        new Padding(
+          padding: EdgeInsets.only(left: 34, top: 7),
+          child: new Text(
+            "品牌授权书",
+            style: TextStyle(color: Colors.black, fontSize: 13),
+          ),
+        ),
+        line(),
+        new Container(
+            margin: EdgeInsets.only(left: 34, top: 7),
+            width: 60,
+            height: 60,
+//                      decoration: new BoxDecoration(
+//                          image:
+//                              new DecorationImage(image: new AssetImage("images/add_pic.png"))),
+            child: new InkWell(
+              child: logoFile != null
+                  ? new Image.file(
+                      logoFile,
+                      fit: BoxFit.fill,
+                    )
+                  : new Image.asset(
+                      "images/add_pic.png",
+                      fit: BoxFit.fill,
+                    ),
+              onTap: () async {
+                var image =
+                    await ImagePicker.pickImage(source: ImageSource.gallery);
+                setState(() {
+                  logoFile = image;
+                });
+              },
+            )),
+        new Padding(
+          padding: EdgeInsets.only(left: 48, right: 48, top: 20, bottom: 20),
+          child: new Button("提交审核", () {
+            putInfo(() {
+              setState(() {
+                step = 3;
+              });
+            });
+          }),
+        ),
+      ],
     );
   }
 }

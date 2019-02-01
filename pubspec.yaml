@@ -49,6 +49,10 @@ flutter:
     - images/zhuangshi.png
     - images/diwen_fp.png
     - images/add_pic.png
+    - images/yingyezhizhao.png
+    - images/identity1.png
+    - images/identity2.png
+    - images/authorize.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
