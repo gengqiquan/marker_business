@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'RegisterController.dart';
+import 'RegisterMarketController.dart';
 import 'dart:ui';
+import 'dart:io';
 import 'package:marker_business/widgets/LoadingView.dart';
 import 'package:marker_business/utils/Colour.dart';
 import 'package:marker_business/widgets/EnsureVisibleWhenFocused.dart';
 import 'package:flutter/services.dart';
 import 'package:marker_business/base/BaseController.dart';
+import 'package:image_picker/image_picker.dart';
 
 ///auther:gengqiquan
 ///date:2019/1/31
@@ -16,7 +18,8 @@ class RegisterMarketUI extends StatefulWidget {
   State<StatefulWidget> createState() => new _RegisterMarketUIState();
 }
 
-class _RegisterMarketUIState extends State<RegisterMarketUI> {
+class _RegisterMarketUIState extends State<RegisterMarketUI>
+    with RegisterMarketController, LoadingViewController, BaseController {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -84,7 +87,50 @@ class _RegisterMarketUIState extends State<RegisterMarketUI> {
                       style: TextStyle(color: Colour.line, fontSize: 12),
                     ),
                   ),
-                  buildEdit("商家名称"),
+                  buildEdit("商家名称", onChanged: (str) {
+                    marketName = str;
+                  }),
+                  line(),
+                  buildEdit("商家电话", onChanged: (str) {
+                    marketPhone = str;
+                  }),
+                  line(),
+                  buildEdit("经办人（联系人）", onChanged: (str) {
+                    operator = str;
+                  }),
+                  line(),
+                  buildEdit("经办人（联系人）电话", onChanged: (str) {
+                    operatorPhone = str;
+                  }),
+                  line(),
+                  buildEdit("商家地址", onChanged: (str) {
+                    address = str;
+                  }),
+                  line(),
+                  buildEdit("企业规模", onChanged: (str) {
+                    scale = str;
+                  }),
+                  line(),
+                  new Text(
+                    "上海LOGO",
+                    style: TextStyle(color: Colors.black, fontSize: 13),
+                  ),
+                  new Container(
+                      width: 120,
+                      height: 120,
+                      decoration: new BoxDecoration(
+                          image:
+                              new DecorationImage(image: new AssetImage("images/add_pic.png"))),
+                      child: new InkWell(
+                        child: new Image.file(logoFile),
+                        onTap: () async {
+                          var image = await ImagePicker.pickImage(
+                              source: ImageSource.camera);
+                          setState(() {
+                            logoFile = image;
+                          });
+                        },
+                      )),
                 ],
               )
             ],
@@ -94,6 +140,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI> {
     );
   }
 
+  File logoFile;
   var step = 2;
   var steps = [
     "商家注册",
@@ -198,6 +245,14 @@ class _RegisterMarketUIState extends State<RegisterMarketUI> {
           ))
         ],
       ),
+    );
+  }
+
+  line() {
+    return new Container(
+      color: Colour.line,
+      margin: EdgeInsets.only(left: 22, right: 22),
+      height: 1,
     );
   }
 }
