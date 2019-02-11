@@ -22,7 +22,7 @@ class _HomeUIState extends State<HomeUI> {
 //      ),
     key:scaffoldKey ,
       body: new Container(
-          color: Colour.back,
+          color: back,
           child: new Column(
             children: <Widget>[
               new Stack(

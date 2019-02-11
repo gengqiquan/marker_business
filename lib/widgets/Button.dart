@@ -20,7 +20,7 @@ class Button extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 16),
         ),
         decoration: BoxDecoration(
-            color: Colour.themeAccent,
+            color: themeAccent,
             borderRadius: BorderRadius.all(Radius.circular(24))),
       ),
       onTap: onTap,

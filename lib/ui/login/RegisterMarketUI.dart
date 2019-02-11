@@ -81,7 +81,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
                 alignment: Alignment.center,
                 child: new Text(
                   "提交入驻申请后，我们会在3个工作日内给出审核结果；如有疑问，请点击右上角联系客服",
-                  style: TextStyle(color: Colour.line, fontSize: 12),
+                  style: TextStyle(color: line, fontSize: 12),
                 ),
               ),
               new Flexible(
@@ -112,7 +112,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
         height: 30,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: step >= index ? Colour.themeAccent : Colour.line,
+            color: step >= index ? themeAccent : line,
             border: Border.all(color: Colors.white, width: 1),
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: new Text(
@@ -135,7 +135,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
         widgets.add(new Flexible(
           flex: 1,
           child: new Container(
-            color: step > index ? Colors.white : Colour.line,
+            color: step > index ? Colors.white : line,
             height: 2,
           ),
         ));
@@ -155,7 +155,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
 //          width: double.infinity,
           child: new Text(
             name,
-            style: TextStyle(color: step >= index ? Colors.white : Colour.line),
+            style: TextStyle(color: step >= index ? Colors.white : line),
           ),
         ),
       ));
@@ -190,10 +190,10 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
               border: InputBorder.none,
 //              hintText: "请输入商家名称",
 //              hintStyle: TextStyle(
-//                color: Colour.gray999,
+//                color: gray999,
 //              ),
             ),
-            style: TextStyle(color: Colour.gray333, fontSize: 13),
+            style: TextStyle(color: gray333, fontSize: 13),
             onChanged: onChanged,
           ))
         ],
@@ -201,9 +201,9 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
     );
   }
 
-  line() {
+  buildLine() {
     return new Container(
-      color: Colour.line,
+      color: line,
       margin: EdgeInsets.only(left: 22, right: 22),
       height: 1,
     );
@@ -232,28 +232,28 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
         buildEdit("商家名称", onChanged: (str) {
           marketName = str;
         }),
-        line(),
+        buildLine(),
         buildEdit("商家电话", inputType: TextInputType.phone, onChanged: (str) {
           marketPhone = str;
         }),
-        line(),
+        buildLine(),
         buildEdit("经办人（联系人）", onChanged: (str) {
           operator = str;
         }),
-        line(),
+        buildLine(),
         buildEdit("经办人（联系人）电话", inputType: TextInputType.text,
             onChanged: (str) {
           operatorPhone = str;
         }),
-        line(),
+        buildLine(),
         buildEdit("商家地址", onChanged: (str) {
           address = str;
         }),
-        line(),
+        buildLine(),
         buildEdit("企业规模", onChanged: (str) {
           scale = str;
         }),
-        line(),
+        buildLine(),
         new Padding(
           padding: EdgeInsets.only(left: 34, top: 7),
           child: new Text(
@@ -439,7 +439,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
         buildEdit("商品名称", onChanged: (str) {
           marketName = str;
         }),
-        line(),
+        buildLine(),
         new Padding(
           padding: EdgeInsets.only(left: 34, top: 7),
           child: new Text(
@@ -447,7 +447,7 @@ class _RegisterMarketUIState extends State<RegisterMarketUI>
             style: TextStyle(color: Colors.black, fontSize: 13),
           ),
         ),
-        line(),
+        buildLine(),
         new Container(
             margin: EdgeInsets.only(left: 34, top: 7),
             width: 60,

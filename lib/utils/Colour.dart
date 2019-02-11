@@ -12,3 +12,4 @@ import 'dart:ui' show Color;
    const Color themeAccent15 = Color(0x15448AFF);
    const Color themeAccentE0 = Color(0xe0448AFF);
    const Color line = Color(0xFFe0e0e0);
+   const Color white =Color(0xFFffffff);

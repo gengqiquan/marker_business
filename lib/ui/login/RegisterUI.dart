@@ -40,7 +40,7 @@ class _RegisterUIState extends State<RegisterUI>
           title: const Text(
             "注册",
             style:
-                TextStyle(color: Colour.gray666, fontWeight: FontWeight.w100),
+                TextStyle(color: gray666, fontWeight: FontWeight.w100),
           )),
       body: new Container(
         color: Colors.white,
@@ -63,7 +63,7 @@ class _RegisterUIState extends State<RegisterUI>
                   ),
                   new Text(
                     "一家专注品牌推广的电商平台",
-                    style: TextStyle(color: Colour.themeAccent, fontSize: 16),
+                    style: TextStyle(color: themeAccent, fontSize: 16),
                   ),
                   new SizedBox(
                     height: 50,
@@ -74,15 +74,15 @@ class _RegisterUIState extends State<RegisterUI>
                       padding: EdgeInsets.only(left: 20, right: 20),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Colour.themeAccent15,
-                          border: Border.all(color: Colour.line, width: 1),
+                          color: themeAccent15,
+                          border: Border.all(color: line, width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(24))),
                       child: new Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           new Icon(
                             Icons.person_outline,
-                            color: Colour.themeAccent,
+                            color: themeAccent,
                           ),
                           new Flexible(
                               child: new EnsureVisibleWhenFocused(
@@ -100,10 +100,10 @@ class _RegisterUIState extends State<RegisterUI>
                                         border: InputBorder.none,
                                         hintText: "请输入您的手机号码",
                                         hintStyle:
-                                            TextStyle(color: Colour.gray999),
+                                            TextStyle(color: gray999),
                                       ),
                                       style: TextStyle(
-                                          color: Colour.gray333, fontSize: 14),
+                                          color: gray333, fontSize: 14),
                                       onChanged: (str) {
                                         phone = str;
                                       },
@@ -120,15 +120,15 @@ class _RegisterUIState extends State<RegisterUI>
                       padding: EdgeInsets.only(left: 20, right: 20),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Colour.themeAccent15,
-                          border: Border.all(color: Colour.line, width: 1),
+                          color: themeAccent15,
+                          border: Border.all(color: line, width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(24))),
                       child: new Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           new Icon(
                             Icons.lock_open,
-                            color: Colour.themeAccent,
+                            color: themeAccent,
                           ),
                           new Flexible(
                               child: new EnsureVisibleWhenFocused(
@@ -146,10 +146,10 @@ class _RegisterUIState extends State<RegisterUI>
                                         border: InputBorder.none,
                                         hintText: "请输入短信验证码",
                                         hintStyle:
-                                            TextStyle(color: Colour.gray999),
+                                            TextStyle(color: gray999),
                                       ),
                                       style: TextStyle(
-                                          color: Colour.gray333, fontSize: 14),
+                                          color: gray333, fontSize: 14),
                                       onChanged: (str) {
                                         code = str;
                                       },
@@ -162,8 +162,8 @@ class _RegisterUIState extends State<RegisterUI>
                               codeEnable ? "获取验证码" : codeTime,
                               style: TextStyle(
                                   color: codeEnable
-                                      ? Colour.themeAccentE0
-                                      : Colour.gray999,
+                                      ? themeAccentE0
+                                      : gray999,
                                   fontSize: 14),
                             ),
                             onTap: () {
@@ -185,7 +185,7 @@ class _RegisterUIState extends State<RegisterUI>
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                       decoration: BoxDecoration(
-                          color: Colour.themeAccent,
+                          color: themeAccent,
                           borderRadius: BorderRadius.all(Radius.circular(24))),
                     ),
                     onTap: () {
@@ -203,13 +203,13 @@ class _RegisterUIState extends State<RegisterUI>
                     children: <Widget>[
                       new Text(
                         "已有账号？",
-                        style: TextStyle(color: Colour.gray999, fontSize: 14),
+                        style: TextStyle(color: gray999, fontSize: 14),
                       ),
                       new InkWell(
                         child: new Text(
                           "去登录",
                           style: TextStyle(
-                              color: Colour.themeAccentE0, fontSize: 14),
+                              color: themeAccentE0, fontSize: 14),
                         ),
                         onTap: () {
                           Navigator.of(context).pop();
