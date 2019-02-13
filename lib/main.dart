@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'home/HomeUI.dart';
-import 'msg/MsgUI.dart';
-import 'user/UserUI.dart';
-import 'login/LoginUI.dart';
+import 'ui/home/HomeUI.dart';
+import 'ui/msg/MsgUI.dart';
+import 'ui/user/UserUI.dart';
+import 'ui/login/LoginUI.dart';
 import 'package:marker_business/utils/User.dart';
 
 void main() => runApp(new MyApp());

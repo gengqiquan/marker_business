@@ -80,7 +80,6 @@ class _HomeUIState extends State<HomeUI> {
                   ],
                 ),
               ),
-              new Padding(padding: EdgeInsets.only(top: 10)),
               new Container(
                 height: 50,
                 padding: EdgeInsets.only(left: 34),
@@ -95,6 +94,7 @@ class _HomeUIState extends State<HomeUI> {
               new Divider(
                 height: 0.5,
               ),
+              new Padding(padding: EdgeInsets.only(top: 10)),
               new Container(
                 color: Colors.white,
                 padding: EdgeInsets.only(top: 15,bottom: 15),
